@@ -13,7 +13,7 @@
     align-items: flex-start;
     height: 100vh;
     position: relative;
-    width: 80%;
+    width: 90%;
     margin: 0 auto;
     padding-top: 2rem;
 }
@@ -25,7 +25,6 @@
     padding: 0.5rem 1rem;
     color: #333;
     gap:0.5rem;
-    width: 10%;
     user-select: none;
 }
 #navbar .nav-item{
@@ -78,4 +77,7 @@
     align-self: center;
     margin:1rem;
     width:30%;
+}
+code{
+    user-select: none;
 }

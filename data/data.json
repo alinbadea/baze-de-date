@@ -17,8 +17,23 @@
         },
         {
             "id": 4,
-            "title": "Section 4",
+            "title": "Introducerea datelor",
             "content": "./sections/section4.html"
+        },
+        {
+            "id": 5,
+            "title": "Citirea datelor",
+            "content": "./sections/section5.html"
+        },
+        {
+            "id": 6,
+            "title": "Modificarea datelor",
+            "content": "./sections/section6.html"
+        },
+        {
+            "id": 7,
+            "title": "Stergerea datelor",
+            "content": "./sections/section7.html"
         }
     ]
 }
