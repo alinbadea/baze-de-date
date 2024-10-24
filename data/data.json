@@ -1,0 +1,19 @@
+{
+    "sections": [
+        {
+            "id": 1,
+            "title": "Section 1",
+            "content": "./sections/section1.html"
+        },
+        {
+            "id": 2,
+            "title": "Section 2",
+            "content": "./sections/section2.html"
+        },
+        {
+            "id": 3,
+            "title": "Section 3",
+            "content": "./sections/section3.html"
+        }
+    ]
+}
