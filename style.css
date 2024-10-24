@@ -45,3 +45,37 @@
     height: 100%;
     box-shadow: 1px 1px 5px #000;
 }
+.section{
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    position: relative;
+    height: 100%;
+}
+.section header{
+    font-size: 2rem;
+    align-self: center;
+    margin-bottom: 1rem;
+    
+}
+.section .content{
+    overflow-y: auto;
+    flex:1;
+    display: flex;
+    flex-direction: column;
+}
+.section .content pre{
+    width:100%;
+    font-size: 1rem;
+    line-height: 1.5;
+    text-wrap: wrap;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+.section .content img{
+    display: inline-block;
+    align-self: center;
+    margin:1rem;
+    width:30%;
+}

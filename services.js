@@ -3,6 +3,9 @@ class FileService {
 
     async loadTextFile(path) {        
         const data = await fetch(path);
+        if(!data.ok && data.status !== 200) {
+            return data.statusText;
+        }
         const html = await data.text();
         return html;
     }

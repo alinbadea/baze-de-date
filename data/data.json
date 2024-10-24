@@ -12,8 +12,13 @@
         },
         {
             "id": 3,
-            "title": "Section 3",
+            "title": "Relatii multi la multi (many to many)",
             "content": "./sections/section3.html"
+        },
+        {
+            "id": 4,
+            "title": "Section 4",
+            "content": "./sections/section4.html"
         }
     ]
 }

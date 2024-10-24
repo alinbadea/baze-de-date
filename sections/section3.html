@@ -1,6 +1,84 @@
 <section id="section3" class="section">
-    <header>Section 3</header>
+    <header>Relatii multi la multi (many to many)</header>
     <div class="content">
-        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit</p>
+        <pre>
+O relatie de tip multi-la-multi intr-o baza de date se intampla atunci cand mai multe inregistrari dintr-un tabel sunt asociate cu mai multe inregistrari din alt tabel. Acest tip de relatie este des intalnita in scenarii in care entitatile stocate in tabele au o interactiune complexa.   
+
+Spre deosebire de relatiile unu-la-multi (one-to-many) care se realizeaza intre cele 2 tabele implicate, relatiile multi-la-multi se realizeaza prin intermediul unui tabel de legatura (tabel asociativ). In cazul nostru vrem sa cream o relatie intre tabelele “Clienti” si “Camere”.  
+
+Un client poate sta azi intr-o camera, iar saptamana viitoare in alta camera (un client, mai multe camere). Pe de alta parte intr-o anumita camera de-a lungul timpului pot sta mai multi clienti (o camera, mai multi clienti). 
+
+Relatia multi-la-multi dintre “Clienti” si “Camere” este realizata prin intermediul tabelului de legatura “Rezervari”. 
+
+Pentru exemplificarea acestui tip de relatie (multi la multi), vom crea pentru inceput tabelul “Rezervari”. Acesta ne va permite sa memoram rezervarile facute de clientii hotelului nostru. 
+
+Tabelul “Rezervari” va asocia un client cu camera pe care acesta vrea sa o rezerve. Pentru a crea tabelul vom face click-dreapta pe numele bazei de date si vom alege optiunea  New -> Table 
+        </pre>
+        <img src="../img/section3/1_create_table.jpg" alt="Image">
+        <pre>
+In fereastra care ne apare vom introduce coloanele tabelului dupa cum se poate vedea in figura de mai jos. 
+        </pre>
+        <img src="../img/section3/2_id_column.jpg" alt="Image">
+        <pre>
+Vom incepe cu coloana “Id”. Aceasta va avea tipul de date “int” si va fi cheia primara a tabelului. Pentru a-i spune bazei de date ca vrem ca aceasta coloana sa fie cheie primara vom face click-dreapta pe numele coloanei si vom alege optiunea “Set Primary Key” dupa cum se poate observa in figura de mai jos.  
+        </pre>
+        <img src="../img/section3/3_primary_key.jpg" alt="Image">
+        <pre>
+Un alt lucru pe care trebuie sa il facem pentru aceasta coloana este sa ii spunem bazei de date sa incrementeze automat id-ul pe masura ce vom introduce inregistrari in tabel. Facem acest lucru prin setarea proprietatii “Is Identity” la valoarea “Yes” 
+
+Avand coloana “Id” selectata, vom merge in sectiunea “Column Properties” si vom gasi sectiunea “Identity Specification”. Apoi setam “Is Identity” la valoarea “Yes”.             
+        </pre>
+        <img src="../img/section3/4_identity_specification.jpg" alt="Image">
+        <pre>
+Vom continua apoi cu introducerea celorlalte coloane. Din moment ce acest tabel va face legatura intre un client si camera pe care acesta a rezervat-o, vom adauga o coloana care sa reprezinte id-ul clientului si o alta coloana care sa reprezinte id-ul camerei. Amandoua vor avea tipul de date “int” si nu vor permite valori nule. Nu ii putem da unui client o camera care nu are id.       
+        </pre>
+        <img src="../img/section3/5_foreign_keys.jpg" alt="Image">
+        <pre>
+O rezervare va avea si o data de check-in si una de check-out. Va trebui sa adaugam cate o coloana si pentru aceste date. Tipul de date al coloanelor va fi “datetime” si din moment ce o rezervare trebuie neaparat sa contina aceste informatii, nu vom permite valori nule pentru aceste coloane.             
+        </pre>
+        <img src="../img/section3/6_dates.jpg" alt="Image">
+        <pre>
+Cu toate ca am adaugat coloane pentru client si camera, va trebui sa ii spunem bazei de date ca de fiecare data cand introducem o inregistrare in acest tabel, sa se asigure ca valoarea pentru “IdClient” exista in tabelul “Clienti” si ca valoarea pentru “IdCamera” exista in tabelul “Camere”.  
+
+Vom face asta prin crearea a doua constrangeri de tip “Foreign Key” (cheie straina). 
+            
+Pentru a crea lagatura intre tabelele “Rezervari” si tabelul “Clienti”, vom face click-dreapta oriunde in lista de coloane si vom alege optiunea “Relationships”.              
+        </pre>
+        <img src="../img/section3/7_relationships.jpg" alt="Image">
+        <pre>
+In fereastra care apare vom apasa butonul “Add” pentru a adauga o relatie. Avand relatia selectata, in lista de proprietati din partea dreapta, vom selecta proprietatea “Tables and Columns Specifications” si vom apasa pe butonul din partea dreapta. 
+        </pre>
+        <img src="../img/section3/8_tables_and_columns_specs.jpg" alt="Image">
+        <pre>
+In fereastra care apare, in sectiunea “Primary key table”, vom alege tabelul “Clienti” si coloana “Id”   
+        </pre>
+        <img src="../img/section3/9_pk_table.jpg" alt="Image">
+        <pre>
+In sectiunea “Foreign key table” vom alege coloana care este cheie straina in tabelul nostru si care trebuie sa corespunda unui client. Aceasta coloana va fi “IdClient”.  
+        </pre>
+        <img src="../img/section3/10_fk_table.jpg" alt="Image">
+        <pre>
+Cu toate ca am spus ca tabelul nostru se numeste “Rezervari”, in imaginea de mai sus vedem ca numele tabelului nostru este “Table_1”. Asta pentru ca deocamdata nu am salvat tabelul. 
+
+Putem observa totodata ca nu putem schimba tabelul din sectiunea “Foreign key table”. Din acest motiv, de fiecare data cand vrem sa cream o relatie unu-la-multi folosind interfata grafica, va trebui sa incepem de la tabelul care se afla pe partea de “multi” a relatiei unu-la-multi. In cazul nostru am creat o relatie unu-la-multi intre “Clienti” si “Rezervari” si am afisat interfata pentru crearea relatiilor din zona de design a tabelului “Rezervari”. 
+
+Dupa ce am selectat coloanele apasam “Ok” pentru a configura relatia. 
+
+Vom adauga apoi si o relatie intre tabelele “Camere” si “Rezervari”. Vom proceda in acelasi mod. Vom apasa pe butonul “Add”, apoi vom selecta din lista de proprietati din dreapta “Tables and Columns Specifications” si vom edita aceasta proprietate dupa cum se poate observa in imaginea de mai jos. 
+        </pre>
+        <img src="../img/section3/11_camere.jpg" alt="Image">
+        <pre>
+Apasam butonul “Ok” pentru a configura si aceasta relatie, iar apoi vom apasa butonul “Close” al ferestrei “Foreign Key Relationships”. 
+
+In acest moment tabelul este configurat in totalitate si trebuie salvat. Pentru salvarea tabelului vom apasa combinatia de taste “Ctrl+C” sau vom apasa pe iconita de save din bara de instrumente (). Pe ecran va aparea o fereastra in care ni se cere sa scriem numele tabelului. Vom scrie ”Rezervari” si vom apasa ”Ok” pentru a salva tabelul. 
+        </pre>
+        <img src="../img/section3/12_save_table.jpg" alt="Image">
+        <pre>
+Tabelul “Rezervari” este folosit pentru serviciile de cazare ale hotelului. In cazul in care hotelul ofera si alte servicii care pot fi inchiriate/cumparate de clienti, aceste servicii pot fi atasate unei rezervari prin intermediul unui tabel cu detalii. Acest tabel “DetaliiRezervare” va asocia o rezervare cu alte servicii oferite de hotel cu ar fi: masaj, coafura, etc si va implementa o relatie multi-la-multi intre clienti si serviciile oferite de hotel.  
+
+Pentru a putea implementa acest scenariu va trebui pentru inceput sa avem un tabel care stocheaza serviciile suplimentare oferite de hotel. Apoi cream tabelul “DetaliiRezervare” si il legam de tabelul “Rezervari”.  
+
+Tot ce am facut pana acum folosind interfata grafica este transformat in instructiuni SQL care sunt executate de serverul de baze de date. 
+        </pre>
     </div>
 </section>
