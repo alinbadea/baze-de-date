@@ -43,7 +43,7 @@
             <code>
                 SELECT * FROM TipCamera;
             </code></pre>
-        <img src="../img/section4/1_tip_camera.jpg" alt="TipCamera table">
+        <img src="./img/section4/1_tip_camera.jpg" alt="TipCamera table">
         <pre>
     In continuare vom adauga cateva inregistrari in tabelul Camere. Vom folosi urmatoarea comanda:
             <code>
@@ -55,7 +55,7 @@
                 SELECT * FROM Camere;
             </code></pre>
         </pre>
-        <img src="../img/section4/2_camere.jpg" alt="Camere table">
+        <img src="./img/section4/2_camere.jpg" alt="Camere table">
         <pre>
     Putem observa ca in toate instructiunile de mai sus nu am specificat coloana id. Acest lucru se datoreaza faptului ca aceasta coloana este de tip autoincrement. Asta inseamna ca valoarea acestei coloane se incrementeaza automat cu 1 pentru fiecare inregistrare noua adaugata in tabel. De asemenea, aceasta coloana nu permite valori nule si are o valoare implicita de 1. Astfel, nu trebuie sa specificam valoarea acestei coloane in instructiunea <code>INSERT INTO</code>. Daca am fi incercat sa specificam valoarea acestei coloane, am fi primit o eroare.
     
@@ -64,7 +64,7 @@
                 INSERT INTO TipCamera (Id, Denumire)
                 VALUES (5, 'Test');
             </code></pre>
-        <img style="width: 80%; height: auto;" src="../img/section4/3_insert_error.jpg" alt="insert error">
+        <img style="width: 80%; height: auto;" src="./img/section4/3_insert_error.jpg" alt="insert error">
         <pre>
     Haideti sa adaugam o camera cu un tip de camera care nu exista in tabelul TipCamera. Vom folosi urmatoarea comanda:
             <code>
@@ -73,7 +73,7 @@
             </code>
     Daca incercam sa rulam aceasta instructiune vom primi urmatoarea eroare:
         </pre>
-        <img style="width: 80%; height: auto;" src="../img/section4/4_insert_error.jpg" alt="insert error">
+        <img style="width: 80%; height: auto;" src="./img/section4/4_insert_error.jpg" alt="insert error">
         <pre>
     Aceasta deoarece valoarea 15 pe care am dat-o coloanei IdTip nu exista in tabelul TipCamera. Daca dorim sa adaugam o camera cu un tip de camera care nu exista in tabelul TipCamera, trebuie sa adaugam mai intai tipul de camera in tabelul TipCamera si apoi sa adaugam camera in tabelul Camere.
     
