@@ -24,6 +24,10 @@ async function onNavClick(e) {
     let section = dataItems.find(item => item.id === id);
     const html = await fileService.loadTextFile(section.content);
     page.innerHTML = html;
+    
+    if(section.hasOwnProperty('customLogic')){
+        //load extra modules
+    }
 
     uiService.handleMenuSelection(id);
 }

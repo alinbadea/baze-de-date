@@ -23,7 +23,20 @@
         {
             "id": 5,
             "title": "Citirea datelor",
-            "content": "./sections/section5.html"
+            "content": "./sections/section5.html",
+            "customLogic":"./tab-control.js",
+            "sections": [
+                {
+                    "id": 1,
+                    "title": "Citirea datelor dintr-o tabela",
+                    "content": "./sections/section5.1.html"
+                },
+                {
+                    "id": 2,
+                    "title": "Citirea datelor din mai multe tabele",
+                    "content": "./sections/section5.2.html"
+                }
+            ]
         },
         {
             "id": 6,
