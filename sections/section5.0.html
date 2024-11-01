@@ -1,0 +1,170 @@
+<section id="section5" class="section">
+    <header>Citirea datelor folosind <code>SELECT</code></header>
+    <div class="content">
+        <pre>
+            Pentru a citi date dintr-un tabel al unei baze de date folosim instrucțiunea <code>SELECT</code>.
+        </pre>
+        <pre>
+            Sintaxa de baza a instrucțiunii <code>SELECT</code> este urmatoarea:
+            <code>
+                SELECT column1, column2, ...
+                FROM table_name;
+            </code>
+            Daca vrem sa selectam toate coloanele din tabel, putem folosi simbolul * in loc de numele coloanelor.
+            <code>
+                SELECT *
+                FROM table_name;
+            </code></pre>
+        <pre>
+            Daca vrem sa selectam doar anumite coloane din tabelul Clienti, putem folosi urmatoarea comanda:
+            <code>
+                SELECT nume, prenume
+                FROM Clienti;
+            </code></pre>
+        <img src="./img/section5/select_from_clienti.jpg" alt="Clienti table">
+        <pre>
+            Iar daca vrem sa selectam toate coloanele din tabelul Clienti, comanda ar arata astfel:
+            <code>
+                SELECT *
+                FROM Clienti;
+            </code></pre>
+        <img src="./img/section5/select_from_clienti2.jpg" alt="Clienti table">
+        <pre>
+            Pe langa selectarea unora sau a tuturor coloanelor din tabel, putem si ordona rezultatul primit. De exemplu, daca vrem sa selectam toate coloanele din tabelul Clienti ordonate dupa nume, comanda ar arata astfel:
+            <code>
+                SELECT *
+                FROM Clienti
+                ORDER BY nume;
+            </code>
+            Acesta comanda ordoneaza rezultatul in ordine alfabetica dupa coloana nume. Daca dorim sa ordonam in ordine descrescatoare, putem adauga cuvantul cheie DESC dupa numele coloanei.
+            <code>
+                SELECT *
+                FROM Clienti
+                ORDER BY nume DESC;
+            </code>
+            Putem de asemenea ordona dupa mai multe coloane. Inainte de a face asta insa, haideti sa mai adaugam niste clienti folosind urmatoarea comanda.
+            <code>
+                INSERT INTO Clienti(nume, prenume)
+                VALUES ('Ionescu','Cristina'),
+                       ('Marin','Petre'),
+                       ('Cristea','Andrei'),
+                       ('Cristea','Maria'),
+                       ('Popescu','Raluca');
+            </code>
+            
+            Acum, daca vrem sa ordonam clientii dupa nume si apoi dupa prenume, putem rula urmatoarea comanda:
+
+            <code>
+                SELECT *
+                FROM Clienti
+                ORDER BY nume, prenume;
+            </code></pre>
+        <img src="./img/section5/order_by_multiple.jpg" alt="Order clienti">
+        <pre>
+            In imaginea de mai sus clientii sunt ordonati alfabetic dupa nume si prenume. Daca vrem sa ii ordonam in ordine descrescatoare dupa nume si apoi in ordine crescatoare dupa prenume, putem rula urmatoarea comanda:
+            <code>
+                SELECT *
+                FROM Clienti
+                ORDER BY nume DESC, prenume;
+            </code></pre>
+        <img src="./img/section5/order_by_multiple2.jpg" alt="Order clienti">
+        <pre>
+            Pe langa ordonarea rezultatului comanda <code>SELECT</code> ne permite sa filtram rezultatele folosind clauza <code>WHERE</code>. De exemplu, daca vrem sa selectam doar clientii cu numele Ionescu, comanda ar arata astfel:
+            <code>
+                SELECT *
+                FROM Clienti
+                WHERE nume = 'Ionescu';
+            </code></pre>
+        <img src="./img/section5/where.jpg" alt="Where nume ionescu">
+        <pre>
+            Clauza <code>WHERE</code> este folosita pentru a specifica o conditie care trebuie indeplinita pentru ca o inregistrare sa fie selectata. In cazul de mai sus, doar inregistrarile cu numele Ionescu vor fi selectate. 
+            Ca in orice limbaj de programare putem specifica o conditie simpla (nume='Ionescu') sau putem folosi operatori logici pentru a combina mai multe conditii. De exemplu, daca vrem sa selectam clientii cu numele Ionescu si prenumele Cristina, comanda ar arata astfel:
+            <code>
+                SELECT *
+                FROM Clienti
+                WHERE nume = 'Ionescu' AND prenume = 'Cristina';
+            </code></pre>
+        <img src="./img/section5/where2.jpg" alt="Where nume ionescu and prenume cristina">
+        <pre>
+            Operatorii logici pe care ii putem folosi sunt:
+        </pre>
+        <ul>
+            <li>AND - returneaza inregistrarile care indeplinesc toate conditiile</li>
+            <li>OR - returneaza inregistrarile care indeplinesc cel putin una dintre conditii</li>
+            <li>NOT - returneaza inregistrarile care nu indeplinesc conditia</li>                
+        </ul>
+        <pre>
+            Pentru a selecta inregistrarile care au numele Ionescu sau Popescu, putem folosi urmatoarea comanda:
+            <code>
+                SELECT *
+                FROM Clienti
+                WHERE nume = 'Ionescu' OR nume = 'Popescu';
+            </code></pre>
+        <img src="./img/section5/where3.jpg" alt="Where nume ionescu or popescu">
+        <pre>
+            In momentul in care specificam o conditie putem folosi oricare din operatorii de comparatie, nu suntem limitati la operatorul de egalitate. Operatorii de comparatie pe care ii putem folosi sunt:
+        </pre>
+        <ul>
+            <li>= - egal</li>
+            <li>> - mai mare</li>
+            <li>< - mai mic</li>
+            <li>>= - mai mare sau egal</li>
+            <li><= - mai mic sau egal</li>
+            <li><> sau != - diferit</li>
+        </ul>
+        <pre>
+            De exemplu, daca vrem sa selectam clientii care au id-ul mai mare de 3, comanda ar arata astfel:
+            <code>
+                SELECT *
+                FROM Clienti
+                WHERE id > 3;
+            </code></pre>
+        <img src="./img/section5/where4.jpg" alt="Where id > 3">
+        <pre>
+            Iar, daca vrem sa selectam clientii al caror nume este mai lung de 5 caractere, putem folosi urmatoarea comanda:
+            <code>
+                SELECT *
+                FROM Clienti
+                WHERE len(nume) > 5;
+            </code></pre>
+        <img src="./img/section5/where5.jpg" alt="Where len(nume) > 5">
+        <pre>
+            Pe langa operatorii de comparatie amintiti mai sus, putem folosi si operatorii <code>LIKE</code> si <code>IN</code>. Operatorul <code>LIKE</code> este folosit pentru a selecta inregistrarile care contin un anumit sir de caractere. De exemplu, daca vrem sa selectam clientii care au numele care incepe cu litera 'C', comanda ar arata astfel:
+            <code>
+                SELECT *
+                FROM Clienti
+                WHERE nume LIKE 'C%';
+            </code>
+            Iar pentru selectarea clientilor care au numele care se termina cu litera 'a', comanda ar arata astfel:
+            <code>
+                SELECT *
+                FROM Clienti
+                WHERE nume LIKE '%a';
+            </code>
+            Operatorul <code>IN</code> este folosit pentru a selecta inregistrarile care au valori ce se gasesc intr-o lista. De exemplu, daca vrem sa selectam clientii care au numele Ionescu sau Popescu, putem folosi urmatoarea comanda:
+            <code>
+                SELECT *
+                FROM Clienti
+                WHERE nume IN ('Ionescu', 'Popescu');
+            </code>
+            Sau, daca vrem sa selectam clientii care au id-ul 1, 3 sau 5, putem folosi urmatoarea comanda:
+            <code>
+                SELECT *
+                FROM Clienti
+                WHERE id IN (1, 3, 5);
+            </code>
+            Ultimul operator pe care il putem folosi este <code>BETWEEN</code>. Acesta este folosit pentru a selecta inregistrarile care au valori cuprinse intr-un interval. De exemplu, daca vrem sa selectam clientii care au id-ul intre 2 si 5, putem folosi urmatoarea comanda:
+            <code>
+                SELECT *
+                FROM Clienti
+                WHERE id BETWEEN 2 AND 5;
+            </code>
+            Sau daca vrem sa selectam toti clientii care sau nascut intre 1990 si 2000, putem folosi urmatoarea comanda:
+            <code>
+                SELECT *
+                FROM Clienti
+                WHERE DataNasterii BETWEEN '1990-01-01' AND '2000-01-01';
+            </code>
+        </pre>
+    </div>
+</section>

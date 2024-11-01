@@ -3,50 +3,57 @@
         {
             "id": 1,
             "title": "Section 1",
-            "content": "./sections/section1.html"
+            "content": "./sections/section1.html",
+            "show":false
         },
         {
             "id": 2,
             "title": "Section 2",
-            "content": "./sections/section2.html"
+            "content": "./sections/section2.html",
+            "show":false
         },
         {
             "id": 3,
             "title": "Relatii multi la multi (many to many)",
-            "content": "./sections/section3.html"
+            "content": "./sections/section3.html",
+            "show":true
         },
         {
             "id": 4,
             "title": "Introducerea datelor",
-            "content": "./sections/section4.html"
+            "content": "./sections/section4.html",
+            "show":true
         },
         {
             "id": 5,
-            "title": "Citirea datelor",
-            "content": "./sections/section5.html",
+            "title": "Citirea datelor - SELECT",
+            "content": "./sections/section5.0.html",
             "customLogic":"./tab-control.js",
-            "sections": [
-                {
-                    "id": 1,
-                    "title": "Citirea datelor dintr-o tabela",
-                    "content": "./sections/section5.1.html"
-                },
-                {
-                    "id": 2,
-                    "title": "Citirea datelor din mai multe tabele",
-                    "content": "./sections/section5.2.html"
-                }
-            ]
+            "show":true
         },
         {
             "id": 6,
-            "title": "Modificarea datelor",
-            "content": "./sections/section6.html"
+            "title": "Citirea datelor - INNER JOIN",
+            "content": "./sections/section5.1.html",
+            "show":false
         },
         {
             "id": 7,
+            "title": "Citirea datelor - LEFT JOIN",
+            "content": "./sections/section5.2.html",
+            "show":false
+        },
+        {
+            "id": 8,
+            "title": "Modificarea datelor",
+            "content": "./sections/section6.html",
+            "show":false
+        },
+        {
+            "id": 9,
             "title": "Stergerea datelor",
-            "content": "./sections/section7.html"
+            "content": "./sections/section7.html",
+            "show":false
         }
     ]
 }

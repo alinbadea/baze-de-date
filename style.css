@@ -88,7 +88,16 @@
     align-self: center;
     margin:1rem;
     width:30%;
+    user-select: none;
 }
 code{
     user-select: none;
+}
+ul{
+    align-self: center;
+    font-size: 1rem;
+    line-height: 1.5;
+    text-wrap: wrap;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    margin-bottom: 1rem;
 }

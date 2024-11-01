@@ -17,7 +17,7 @@
                 VALUES ('Popescu', 'Ion', 3000);
             </code></pre>
         <pre>
-    Trebuie sa fim foarte atenți la ordinea coloanelor și a valorilor. Dacă nu respectăm această ordine, vom primi o eroare. De asemenea valoarea pe care o dam unei coloane trebuie sa fie de același tip de date ca și coloana respectivă. Dacă nu respectăm această regula, vom primi o eroare.
+    Numarul de coloane specificate dupa numele tabelului trebuie sa fie la fel cu numarul valorilor specificate dupa cuvantul VALUES. De asemenea valoarea pe care o dam unei coloane trebuie sa fie de același tip de date ca și coloana respectivă. Prima valoare specificata dupa VALUES ('Popescu') corespunde primei coloane specificate dupa numele tabelului (nume) etc.
 
     Instructiunea ne permite sa specificam pentru care coloane vrem sa inseram date si valorile pe care vrem sa le inseram. De exemplu, daca avem un tabel numit utilizatori cu coloanele id, nume, prenume, email si telefon si vrem sa dam valori doar pentru nume si prenume, atunci instructiunea ar arata asa:
             <code>
@@ -34,12 +34,12 @@
                 INSERT INTO TipCamera (Denumire)
                 VALUES ('Single');
             </code>
-    Putem de asemenea sa introducem mai multe inregistrari folosind o singura comanda. Tot ce trebuie sa facem este sa adaugam mai multe valori in instructiunea <code>VALUES</code> separate prin virgula. De exemplu, pentru a introduce inregistrari pentru tipurile de camera Double, 3 Bed si 4 Bed, vom folosi urmatoarea comanda:
+    Putem de asemenea sa introducem mai multe inregistrari folosind o singura comanda. Tot ce trebuie sa facem este sa adaugam mai multe valori dupa cuvantul <code>VALUES</code> separate prin virgula. Fiecare set de valori este specificat intre un set de paranteze. De exemplu, pentru a introduce inregistrari pentru tipurile de camera Double, 3 Bed si 4 Bed, vom folosi urmatoarea comanda:
             <code>
                 INSERT INTO TipCamera (Denumire)
                 VALUES ('Double'), ('3 Bed'), ('4 Bed');
             </code>
-    Pentru a vedea daca inregistrari au fost adaugate cu succes, putem folosi comanda <code>SELECT</code> pentru a selecta toate inregistrarile din tabelul TipCamera:
+    Pentru a vedea daca inregistrarile au fost adaugate cu succes, putem folosi comanda <code>SELECT</code> pentru a selecta toate inregistrarile din tabelul TipCamera:
             <code>
                 SELECT * FROM TipCamera;
             </code></pre>
@@ -50,14 +50,14 @@
                 INSERT INTO Camere (Numar, IdTip, Balcon)
                 VALUES (101, 1, 1), (104, 1, 0), (102, 2, 0);
             </code>
-    Pentru a vedea daca inregistrari au fost adaugate cu succes, putem folosi comanda <code>SELECT</code> pentru a selecta toate inregistrarile din tabelul Camere:
+    Pentru a vedea daca inregistrarile au fost adaugate cu succes, putem folosi comanda <code>SELECT</code> pentru a selecta toate inregistrarile din tabelul Camere:
             <code>
                 SELECT * FROM Camere;
             </code></pre>
         </pre>
         <img src="./img/section4/2_camere.jpg" alt="Camere table">
         <pre>
-    Putem observa ca in toate instructiunile de mai sus nu am specificat coloana id. Acest lucru se datoreaza faptului ca aceasta coloana este de tip autoincrement. Asta inseamna ca valoarea acestei coloane se incrementeaza automat cu 1 pentru fiecare inregistrare noua adaugata in tabel. De asemenea, aceasta coloana nu permite valori nule si are o valoare implicita de 1. Astfel, nu trebuie sa specificam valoarea acestei coloane in instructiunea <code>INSERT INTO</code>. Daca am fi incercat sa specificam valoarea acestei coloane, am fi primit o eroare.
+    Putem observa ca in toate instructiunile de mai sus nu am specificat coloana id. Acest lucru se datoreaza faptului ca aceasta coloana este autoincrementa. Asta inseamna ca valoarea acestei coloane este generata de baza de date si se incrementeaza automat cu 1 pentru fiecare inregistrare noua adaugata in tabel. De asemenea, aceasta coloana nu permite valori nule si are o valoare implicita de 1. Astfel, nu trebuie sa specificam valoarea acestei coloane in instructiunea <code>INSERT INTO</code>. Daca am fi incercat sa specificam valoarea acestei coloane, am fi primit o eroare.
     
     Instructiunea urmatoare ar fi generat o eroare:
             <code>
@@ -75,7 +75,7 @@
         </pre>
         <img style="width: 80%; height: auto;" src="./img/section4/4_insert_error.jpg" alt="insert error">
         <pre>
-    Aceasta deoarece valoarea 15 pe care am dat-o coloanei IdTip nu exista in tabelul TipCamera. Daca dorim sa adaugam o camera cu un tip de camera care nu exista in tabelul TipCamera, trebuie sa adaugam mai intai tipul de camera in tabelul TipCamera si apoi sa adaugam camera in tabelul Camere.
+    Aceasta deoarece valoarea 15 pe care am dat-o coloanei IdTip nu exista in tabelul TipCamera. Daca dorim sa adaugam o camera cu un tip de camera care nu exista, trebuie sa adaugam mai intai tipul de camera in tabelul TipCamera si apoi sa adaugam camera in tabelul Camere.
     
     In continuare vom adauga si 3 clienti in tabelul Clienti. Vom folosi urmatoarea comanda:
             <code>

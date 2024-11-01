@@ -39,6 +39,7 @@ class UIService {
         selected.classList.add('active');
     }
     #createSection(section) {
+        if(section === null || section === undefined || section.show === null || section.show === undefined || section.show===false) return;
         const div = document.createElement('div');
         div.setAttribute(this.#keyAttr, section.id);
         div.classList.add('nav-item');

@@ -1,7 +1,17 @@
 import { fileService, uiService } from './services.js';
 
-document.addEventListener('DOMContentLoaded', load);
+window.oncontextmenu = function () {
+    return false;
+};
 
+document.addEventListener('DOMContentLoaded', load);
+document.addEventListener('keydown', (e)=>{
+    if(e.key === 'F12' || 
+        (e.ctrlKey && e.shiftKey && (e.key === 'I' || e.key==='J'))){
+        e.preventDefault();
+        return false;
+    };
+});
 const menu = document.querySelector('#navbar');
 const page = document.querySelector('#main-content');
 
