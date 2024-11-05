@@ -90,6 +90,13 @@
     width:30%;
     user-select: none;
 }
+.section-header{
+    font-size: 2rem;
+    padding-left: 0.5rem;
+    margin:1.5rem 0.5rem 1.5rem 0;
+    width: 100%;
+    border-bottom: 1px solid #333;
+}
 code{
     user-select: none;
 }
