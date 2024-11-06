@@ -15,6 +15,14 @@ class FileService {
         const json = await data.json();
         return json.sections;
     }
+    downloadFile(){
+        const link = document.createElement('a');
+        link.href = './data/script.sql';
+        link.download = 'script.sql';
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+    }
 }
 
 class UIService {

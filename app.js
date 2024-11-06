@@ -1,17 +1,17 @@
 import { fileService, uiService } from './services.js';
 
-window.oncontextmenu = function () {
-    return false;
-};
+// window.oncontextmenu = function () {
+//     return false;
+// };
 
 document.addEventListener('DOMContentLoaded', load);
-document.addEventListener('keydown', (e)=>{
-    if(e.key === 'F12' || 
-        (e.ctrlKey && e.shiftKey && (e.key === 'I' || e.key==='J'))){
-        e.preventDefault();
-        return false;
-    };
-});
+// document.addEventListener('keydown', (e)=>{
+//     if(e.key === 'F12' || 
+//         (e.ctrlKey && e.shiftKey && (e.key === 'I' || e.key==='J'))){
+//         e.preventDefault();
+//         return false;
+//     };
+// });
 const menu = document.querySelector('#navbar');
 const page = document.querySelector('#main-content');
 
@@ -22,6 +22,7 @@ async function load() {
     uiService.displayData(dataItems);
 
     menu.addEventListener('click', onNavClick);
+    page.addEventListener('click', onClick);
 }
 
 
@@ -42,3 +43,10 @@ async function onNavClick(e) {
     uiService.handleMenuSelection(id);
 }
 
+async function onClick(e) {
+    e.preventDefault();
+    if(e.target.getAttribute('id')!='downloadLink'){
+        return;
+    }
+    fileService.downloadFile();
+}

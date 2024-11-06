@@ -1,6 +1,12 @@
 {
     "sections": [
         {
+            "id": 0,
+            "title": "Resurse",
+            "content": "./sections/section0.html",
+            "show":true
+        },
+        {
             "id": 1,
             "title": "Section 1",
             "content": "./sections/section1.html",
