@@ -2,7 +2,136 @@
     <header>Citirea datelor din mai multe tabele folosind <code>INNER JOIN</code></header>
     <div class="content">
         <pre>
+            Instructiunile <code>SELECT</code> pe care le-am folosit pana acum sunt simple si ne permit sa citim date dintr-un singur tabel. Pentru a putea citi date din mai multe tabele, folosim instructiunea <code>INNER JOIN</code>. Aceasta instructiune ne permite sa combinam datele din doua sau mai multe tabele, in functie de o conditie specificata.
+
+            Intr-o baza de date relationala, datele sunt organizate in tabele. Fiecare tabel este format din randuri si coloane. Tabelele pot fi legate intre ele prin intermediul cheilor primare si a cheilor straine. 
             
+            De exemplu in baza noastra de date avem tabelele <code>Camere</code> si <code>TipCamera</code>. Tabela <code>Camere</code> contine informatii despre camerele din hotel, iar tabela <code>TipCamera</code> contine informatii despre tipurile de camera. Aceste tabele sunt legate intre ele printr-o relatie de tipul <code>one-to-many</code>, adica o camera poate avea un singur tip, iar un tip de camera poate fi asociat cu mai multe camere. Aceasta relatie este implementata prin intermediul cheii straine <code>IdTip</code> din tabela <code>Camere</code>, care face referire la cheia primara <code>Id</code> din tabela <code>TipCamera</code>. Relatia poate fi observata in figura de mai jos.
         </pre>
+        <img style="width: 70%; "
+                src="./img/section5.1/camera-tip_camera.jpg" 
+                alt="Relatie one-to-many intre tabelele Camere si TipCamera">
+        <pre>
+            Pentru a citi datele din tabela <code>Camere</code> putem folosi urmatoarea instructiune:
+            <code>
+                SELECT * FROM Camere
+            </code>
+            Rezultatul il putem vedea in figura de mai jos.
+        </pre>
+        <img src="./img/section5.1/selectCamere.jpg" alt="select camere">
+        <pre>
+            Limitarea acestei instructiuni simple este ca nu ne ofera informatii despre tipul camerei. Pentru a putea citi si informatiile despre tipul camerei, putem folosi instructiunea <code>INNER JOIN</code>. Aceasta instructiune ne permite sa combinam datele din cele doua tabele, in functie de o conditie. Conditia este intotdeauna legata de cheile primare si cheile straine ale tabelelor din care vrem sa citim date.
+            
+            In cazul nostru, conditia este ca <code>IdTip</code> din tabela <code>Camere</code> sa fie egal cu <code>Id</code> din tabela <code>TipCamera</code>. Conditia in cazul unei instructiuni <code>JOIN</code> se specifica dupa cuvantul cheie <code>ON</code>. Instructiunea arata in felul urmator:
+            <code>
+                SELECT *
+                FROM Camere 
+                INNER JOIN TipCamera ON Camere.IdTip = TipCamera.Id
+            </code>
+            Rezultatul il putem vedea in figura de mai jos.
+        </pre>
+        <img style="width:40%; " src="./img/section5.1/camereJoinTip.jpg" alt="select camere join tip">
+        <pre>
+            In rezultatul afisat putem observa ca avem toate campurile din ambele tabele. In cazul in care dorim sa afisam doar anumite campuri, putem specifica numele acestora in loc de <code>*</code>. De exemplu, daca dorim sa afisam doar numarul camerei si tipul camerei, putem folosi urmatoarea instructiune:
+            <code>
+                SELECT Numar, Denumire
+                FROM Camere 
+                INNER JOIN TipCamera ON Camere.IdTip = TipCamera.Id
+            </code>
+            Rezultatul il putem vedea in figura de mai jos.
+        </pre>
+        <img style="width:20%; " src="./img/section5.1/camereJoinTip2.jpg" alt="select camere join tip2">
+        <pre>
+            Sintaxa instructiunii <code>INNER JOIN</code> este urmatoarea:
+            <code>
+                SELECT coloane
+                FROM nume_tabel1
+                INNER JOIN nume_tabel2 ON conditie
+            </code>
+            Conditia are urmatoarea forma: <code>nume_tabel1.cheie_primara = nume_tabel2.cheie_straina</code>. Cheia primara din tabelul1 trebuie sa fie egala cu cheia straina din tabelul2.
+            <code>
+                SELECT coloane
+                FROM nume_tabel1
+                INNER JOIN nume_tabel2 ON nume_tabel1.cheie_primara = nume_tabel2.cheie_straina
+            </code>
+            Un alt lucru pe care il putem observa este ca atunci cand am specificat conditia, am prefixat numele coloanelor cu numele tabelului din care fac parte. Am facut asta pentru a evita eventualele conflicte care pot aparea in cazul in care amandoua tabelele contin coloane care au acelasi nume. De exemplu, urmatoarea instructiune ar da eroare.
+            <code>
+                SELECT Numar, Denumire
+                FROM Camere 
+                INNER JOIN TipCamera ON IdTip = Id
+            </code></pre>
+        <img style="width:50%; " src="./img/section5.1/err.jpg" alt="eroare">
+        <pre>
+            Prefixarea numelui coloanelor cu numele tabelului din care fac parte este necesara atunci cand stim ca tabelele contin coloane cu acelasi nume. In cazul in care tabelele nu contin coloane cu acelasi nume, prefixarea nu este necesara dar este recomandata pentru a face codul mai usor de citit.
+
+            Haideti in contiuare sa vedem ce clienti avem in baza de date. Putem citi lista de clienti folosind urmatoarea instructiune:
+            <code>
+                SELECT * FROM Clienti
+            </code>
+            Rezultatul il putem vedea in figura de mai jos.
+        </pre>
+        <img src="./img/section5.1/clienti.jpg" alt="clienti">
+        <pre>
+            Haideti acum sa vedem ce rezervari au facut acesti clienti. Pentru asta trebuie sa unim tabelele <code>Clienti</code> si <code>Rezervari</code>.
+            <code>
+                SELECT *
+                FROM Clienti
+                INNER JOIN Rezervari ON Clienti.Id = Rezervari.IdClient
+            </code>
+            Rezultatul il putem vedea in figura de mai jos.
+        </pre>
+        <img style="width:70%; " src="./img/section5.1/rezervariClienti.jpg" alt="clienti-rezervari">
+        <pre>
+            In urma acestui rezultat putem observa mai multe lucruri.
+
+            In primul rand, putem observa ca avem mai multe rezervari pentru un singur client. Clientii "Badea Alin" si "Ionescu Daniel" au facut mai multe rezervari.
+
+            In al doilea rand, putem observa ca avem clienti care nu au facut nicio rezervare. Clientul "Popescu Raluca" nu are nicio rezervare. Clientii care nu au facut rezervari nu apar in rezultat. Acest lucru se intampla din cauza modului in care functioneaza instructiunea <code>INNER JOIN</code>. Aceasta instructiune returneaza doar inregistrarile care au o corespondenta in ambele tabele. Daca un client nu are nicio rezervare, atunci nu va exista nicio inregistrare aferenta lui (corespondenta) in tabelul <code>Rezervari</code> si clientul nu va aparea in rezultat.
+
+            Daca privim cele doua tabele ca fiind multimi, atunci instructiunea <code>INNER JOIN</code> returneaza intersectia acestor multimi. Daca un element din prima multime nu exista in a doua multime, atunci acel element nu va fi inclus in rezultat. Instructiunii <code>INNER JOIN</code> ii corespunde urmatoarea diagrama.
+        </pre>
+        <img src="./img/section5.1/venn_innerJoin.jpg" alt="venn inner join">
+        <pre>
+            Putem de asemenea filtra rezultatele folosind clauza <code>WHERE</code>. De exemplu, daca dorim sa afisam doar rezervarile facute de clientul "Badea Alin", putem folosi urmatoarea instructiune:
+            <code>
+                SELECT *
+                FROM Clienti
+                INNER JOIN Rezervari ON Clienti.Id = Rezervari.IdClient
+                WHERE Nume = 'Badea' and Prenume = 'Alin'
+            </code></pre>
+        <img style="width:70%; " src="./img/section5.1/rezervariClient1.jpg" alt="rezervari client 1">
+        <pre>
+            Daca ne uitam la acest rezultat putem vedea ca desi avem informatiile referitoare la rezervari, informatiile referitoare la camere lipsesc. Pentru a putea afisa si informatiile referitoare la camere, putem folosi instructiunea <code>INNER JOIN</code> pentru a combina tabelele <code>Rezervari</code> si <code>Camere</code>. Instructiunea arata in felul urmator:
+            <code>
+                SELECT Nume, Prenume, Checkin, Checkout, Numar, IdTip
+                FROM Clienti
+                INNER JOIN Rezervari ON Clienti.Id = Rezervari.IdClient
+                INNER JOIN Camere ON Rezervari.IdCamera = Camere.Id
+                WHERE Nume = 'Badea' and Prenume = 'Alin'
+            </code></pre>
+        <img style="width:70%; " src="./img/section5.1/rezervariCamere.jpg" alt="rezervari camere">
+        <pre>
+            In cazul in care dorim sa afisam si informatiile referitoare la tipul camerei, putem folosi instructiunea <code>INNER JOIN</code> pentru a combina tabelele <code>Rezervari</code>, <code>Camere</code> si <code>TipCamera</code>. Instructiunea arata in felul urmator:
+            <code>
+                SELECT Nume, Prenume, Checkin, Checkout, Numar, Denumire
+                FROM Clienti
+                INNER JOIN Rezervari ON Clienti.Id = Rezervari.IdClient
+                INNER JOIN Camere ON Rezervari.IdCamera = Camere.Id
+                INNER JOIN TipCamera ON Camere.IdTip = TipCamera.Id
+                WHERE Nume = 'Badea' and Prenume = 'Alin'
+            </code></pre>
+        <img style="width:70%; " src="./img/section5.1/rezervariCamereTip.jpg" alt="rezervari camere tip">
+        <pre>
+            Intr-o instructiune <code>SELECT</code> putem folosi oricate instructiuni <code>INNER JOIN</code>. Putem combina oricate tabele dorim, in functie de nevoile noastre. In aceasta situatie clauza <code>WHERE</code> se va scrie dupa ultima instructiune <code>INNER JOIN</code>. Iar daca dorim sa ordonam rezultatul, clauza <code>ORDER BY</code> se va scrie la finalul instructiunii <code>SELECT</code>. De exemplu, daca dorim sa afisam rezervarile facute de clientul "Badea Alin" ordonate dupa data de checkin, putem folosi urmatoarea instructiune:
+            <code>
+                SELECT Nume, Prenume, Checkin, Checkout, Numar, Denumire
+                FROM Clienti
+                INNER JOIN Rezervari ON Clienti.Id = Rezervari.IdClient
+                INNER JOIN Camere ON Rezervari.IdCamera = Camere.Id
+                INNER JOIN TipCamera ON Camere.IdTip = TipCamera.Id
+                WHERE Nume = 'Badea' and Prenume = 'Alin'
+                ORDER BY Checkin
+            </code></pre>
+        <img style="width:70%; " src="./img/section5.1/sort1.jpg" alt="order by checkin">
     </div>
 </section>

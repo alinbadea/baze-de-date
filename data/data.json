@@ -41,11 +41,11 @@
             "id": 6,
             "title": "Citirea datelor - INNER JOIN",
             "content": "./sections/section5.1.html",
-            "show":false
+            "show":true
         },
         {
             "id": 7,
-            "title": "Citirea datelor - LEFT JOIN",
+            "title": "Citirea datelor - OUTER JOIN",
             "content": "./sections/section5.2.html",
             "show":false
         },

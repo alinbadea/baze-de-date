@@ -1,3 +1,100 @@
-<div>
-    sectiunea 2
-</div>
+<section id="section5.1" class="section">
+    <header>Citirea datelor din mai multe tabele folosind <code>OUTER JOIN</code></header>
+    <div class="content">
+        <pre>
+            Spre deosebire de <code>INNER JOIN</code> care returneaza inregistrarile care au corespondent in amandoua tabelele, <code>OUTER JOIN</code> returneaza toate inregistrarile dintr-un tabel si inregistrarile care au corespondent in cealalt tabel. Daca o inregistrare nu are corespondent in al doilea tabel, atunci se va returna <code>NULL</code> pentru coloanele din al doilea tabel.
+
+            Exista mai multe tipuri de <code>OUTER JOIN</code>:
+        </pre>
+        <ul>
+            <li><code>LEFT JOIN</code></li>
+            <li><code>RIGHT JOIN</code></li>
+            <li><code>FULL OUTER JOIN</code></li>
+        </ul>
+        <span class="section-header">LEFT JOIN</span>
+        <pre>
+            <code>LEFT JOIN</code> returneaza toate inregistrarile din tabelul din stanga si inregistrarile care au corespondent in tabelul din dreapta. Daca o inregistrare nu are corespondent in tabelul din dreapta, atunci se va returna <code>NULL</code> pentru coloanele din tabelul din dreapta. Diagrama Venn care ilustreaza <code>LEFT JOIN</code> este urmatoarea:</pre>
+        <img src="./img/section5.2/venn_leftJoin.jpg" alt="LEFT JOIN">
+        <pre>
+            Sintaxa instructiunii <code>SELECT</code> cu <code>LEFT JOIN</code> este urmatoarea:
+            <code>
+                SELECT *
+                FROM table1
+                LEFT JOIN table2
+                ON table1.column_name = table2.column_name;
+            </code>
+            Pentru a exemplifica aceasta instructiune, vom folosi tabelele <code>Clienti</code> si <code>Rezervari</code>. Vom afisa toti clientii si rezervarile lor, chiar daca unii clienti nu au facut nicio rezervare. Pentru aceasta vom folosi urmatoarea instructiune:
+            <code>
+                SELECT Clienti.Nume, Clienti.Prenume, Rezervari.Checkin, Rezervari.Checkout
+                FROM Clienti
+                LEFT JOIN Rezervari
+                ON Clienti.Id = Rezervari.IdClient;
+            </code>
+            Tabelul <code>Clienti</code> este tabelul din stanga, iar tabelul <code>Rezervari</code> este tabelul din dreapta. Rezultatul poate fi vazut in imaginea de mai jos.
+        </pre>
+        <img style="width:40%;" src="./img/section5.2/clientiRezervari.jpg" alt="LEFT JOIN">
+        <pre>
+            Putem observa ca pentru clientii care au facut rezervari, rezultatul contine si informatii despre rezervare, iar pentru cei care nu au facut rezervari, campurile corespunzatoare rezervarii sunt <code>NULL</code>. Aceasta abordare este utila pentru a captura informatiile relevante din tabelul principal (cel din stanga) si a ne asigura ca vom vedea si informatiile relevante din celalalte tabele.
+            
+            Putem obtine o lista cu clientii care nu au facut rezervari daca filtram rezultatul dupa campurile care sunt <code>NULL</code> in tabelul <code>Rezervari</code>.
+            <code>
+                SELECT Clienti.Nume, Clienti.Prenume
+                FROM Clienti
+                LEFT JOIN Rezervari
+                ON Clienti.Id = Rezervari.IdClient
+                WHERE Rezervari.IdClient IS NULL;
+            </code></pre>
+        <img style="width:20%;" src="./img/section5.2/clientiFaraRezervari.jpg" alt="clienti fara rezervari">
+        <pre>
+            Daca am privi cele doua tabele ca multimi, atunci instructiunea de mai sus ar fi echivalenta cu operatia de diferenta intre multimi <code>A - B</code>. Acestei operatii ii corespunde urmatoarea diagrama Venn:
+        </pre>
+        <img src="./img/section5.2/venn_AMinusB.jpg" alt="A-B">
+        
+        <span class="section-header">RIGHT JOIN</span>
+        <pre>
+            <code>RIGHT JOIN</code> este asemanator cu <code>LEFT JOIN</code> dar returneaza toate inregistrarile din tabelul din dreapta si inregistrarile care au corespondent in tabelul din stanga. Daca o inregistrare nu are corespondent in tabelul din stanga, atunci se va returna <code>NULL</code> pentru coloanele tabelului din stanga. Diagrama Venn care ilustreaza <code>RIGHT JOIN</code> este urmatoarea:</pre>
+        <img src="./img/section5.2/venn_rightJoin.jpg" alt="RIGHT JOIN">
+        <pre>
+            Sa presupunem ca vrem sa afisam toate tipurile de camera impreuna cu camemerele asociate. Pentru asta am folosi urmatoarea instructiune:
+            <code>
+                SELECT TipCamera.Denumire, Camere.Id, Camere.Numar
+                FROM Camere
+                RIGHT JOIN TipCamera on TipCamera.Id=Camere.IdTip
+            </code>
+            Rezultatul poate fi vazut in imaginea de mai jos.
+        </pre>
+        <img style="width:30%;" src="./img/section5.2/camereTipCamera.jpg" alt="RIGHT JOIN">
+        
+        <span class="section-header">FULL JOIN</span>
+        <pre>
+            <code>FULL JOIN</code> combina rezultatele din <code>LEFT JOIN</code> si <code>RIGHT JOIN</code>. Returneaza toate inregistrarile din ambele tabele si completeaza cu <code>NULL</code> acolo unde nu exista corespondenta. Acest <code>JOIN</code> este util atunci cand ne trebuie un set de date care in clude toate inregistrarile posibile din ambele tabele chiar daca exista sau nu corespondent in celalalt tabel. Diagrama Venn care ilustreaza <code>FULL JOIN</code> este urmatoarea:</pre>
+        <img src="./img/section5.2/venn_fullJoin.jpg" alt="FULL JOIN">
+        <pre>
+            Sintaxa instructiunii <code>SELECT</code> cu <code>FULL JOIN</code> este urmatoarea:
+            <code>
+                SELECT *
+                FROM table1
+                FULL OUTER JOIN table2
+                ON table1.column_name = table2.column_name;
+            </code>
+            Pentru a exemplifica, haideti sa ne imaginam ca vrem sa afisam o lista a tuturor clientilor si a camerelor pe care le-au rezervat, inclusiv clientii care nu au facut nicio rezervare si camerele care nu au fost inca rezervate. Inainte de a citi aceste date, haideti sa mai introducem niste inregistrari in tabelul <code>Camere</code>.
+            Vom rula urmatoarea instructiune:
+            <code>
+                INSERT INTO Camere(IdTip, Numar) 
+                VALUES (1,103),(1,201),(1,202), (2, 203), (2,204)
+            </code>
+            Iar apoi vom folosi instructiunea <code>SELECT</code> cu <code>FULL JOIN</code> pentru a obtine rezultatul dorit:
+            <code>
+                SELECT Nume, Prenume, Numar
+                from Clienti
+                FULL JOIN Rezervari on Clienti.id = Rezervari.IdClient
+                FULL JOIN Camere on Camere.id=Rezervari.IdCamera
+            </code>
+            Rezultatul poate fi vazut in imaginea de mai jos.
+        </pre>
+        <img style="width:30%;" src="./img/section5.2/fullJoin.jpg" alt="FULL JOIN">
+        <pre>
+            Rezultatul afiseaza camerele rezervate de clienti, clientii care nu au facut inca rezervari si camerele care nu au fost inca rezervate. Putem observa ca pentru clientii care nu au facut rezervari, campurile corespunzatoare rezervarii sunt <code>NULL</code>, iar pentru camerele care nu au fost inca rezervate, campurile corespunzatoare clientului sunt <code>NULL</code>.
+        </pre>
+    </div>
+</section>
