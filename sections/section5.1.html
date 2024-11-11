@@ -62,7 +62,9 @@
             </code></pre>
         <img style="width:50%; " src="./img/section5.1/err.jpg" alt="eroare">
         <pre>
-            Prefixarea numelui coloanelor cu numele tabelului din care fac parte este necesara atunci cand stim ca tabelele contin coloane cu acelasi nume. In cazul in care tabelele nu contin coloane cu acelasi nume, prefixarea nu este necesara dar este recomandata pentru a face codul mai usor de citit.
+            Serverul SQL nu stie din care tabel sa aleaga coloana <code>Id</code> deoarece ambele tabele contin o coloana cu acelasi nume.
+
+            Prefixarea numelui coloanelor cu numele tabelului din care fac parte este necesara atunci cand stim ca tabelele contin coloane cu acelasi nume. Prefixarea se face atat in lista de coloane specificata dupa cuvantul <code>SELECT</code> cat si atunci cand specificam conditia de unire sau conditia de filtrare. In cazul in care tabelele nu contin coloane cu acelasi nume, prefixarea nu este necesara dar este recomandata pentru a face codul mai usor de citit.
 
             Haideti in contiuare sa vedem ce clienti avem in baza de date. Putem citi lista de clienti folosind urmatoarea instructiune:
             <code>
@@ -72,7 +74,7 @@
         </pre>
         <img src="./img/section5.1/clienti.jpg" alt="clienti">
         <pre>
-            Haideti acum sa vedem ce rezervari au facut acesti clienti. Pentru asta trebuie sa unim tabelele <code>Clienti</code> si <code>Rezervari</code>.
+            Haideti acum sa vedem ce rezervari au facut acesti clienti. Pentru asta trebuie sa unim tabelele <code>Clienti</code> si <code>Rezervari</code>. Cheia primara din tabelul <code>Clienti</code> (Id) trebuie sa fie egala cu cheia straina din tabelul <code>Rezervari</code> (IdClient).
             <code>
                 SELECT *
                 FROM Clienti
