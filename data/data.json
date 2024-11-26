@@ -60,6 +60,18 @@
             "title": "Stergerea datelor",
             "content": "./sections/section7.html",
             "show":false
+        },
+        {
+            "id": 10,
+            "title": "Functii predefinite",
+            "content": "./sections/section8.html",
+            "show":false
+        },
+        {
+            "id": 11,
+            "title": "Agregarea datelor - GROUP BY",
+            "content": "./sections/section9.html",
+            "show":false
         }
     ]
 }
